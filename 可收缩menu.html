@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>menu收缩</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .container {
+      height: 100vh;
+      display: flex;
+    }
+
+    .collapse {
+      max-width: 50px;
+      animation: collapse ease .5s forwards;
+    }
+
+    .expand {
+      animation: expand ease .5s forwards;
+    }
+
+    #left {
+      width: 250px;
+      max-width: 250px;
+      background-color: black;
+    }
+
+    @keyframes collapse {
+      100% {
+        max-width: 50px;
+      }
+    }
+
+    @keyframes expand {
+      0% {
+        max-width: 50px;
+      }
+    }
+
+    #right {
+      flex: 1;
+      background-color: #999;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: #fff;
+    }
+    li{
+      position: relative;
+      height: 50px;
+      line-height: 50px;
+      padding:0 10px;
+      cursor: pointer;
+    }
+    .box {
+      max-width: 100%;
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      transition: all ease .5s;
+      overflow: hidden;
+    }
+
+    li:hover {
+      background-color: yellow;
+      color: #000000;
+    }
+
+    li:hover .hover-ol {
+      display: block;
+    }
+
+    .li-icon {
+      display: inline-block;
+      width: 50px;
+    }
+
+    .li-text {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .hover-ol {
+      display: none;
+      top: 0;
+      position: absolute;
+      right: 0;
+      transform: translateX(100%);
+      color: #000;
+      background-color: #e5e5e5;
+      min-width: 110px;
+      text-align: center;
+    }
+    .hover-ol p{
+      margin: 0;
+      height: 50px;
+      line-height: 50px;
+      transition: all ease .3s;
+    }
+    .hover-ol p:hover{
+      background-color: yellow;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div id="left">
+      <ul>
+        <li>
+          <div class="box">
+            <span class="li-icon">😀</span>
+            <span class="li-text">主页</span>
+          </div>
+          <div class="hover-ol">
+            <p>hover菜单1</p>
+            <p>hover菜单2</p>
+          </div>
+        </li>
+        <li>
+          <div class="box">
+            <span class="li-icon">🤣</span>
+            <span class="li-text">关于</span>
+          </div>
+          <div class="hover-ol">
+            <p>hover菜单1</p>
+            <p>hover菜单2</p>
+          </div>
+        </li>
+        <li>
+          <div class="box">
+            <span class="li-icon">😎</span>
+            <span class="li-text">管理</span>
+          </div>
+          <div class="hover-ol">
+            <p>hover菜单1</p>
+            <p>hover菜单2</p>
+          </div>
+        </li>
+      </ul>
+      <button id="collapse">收起</button>
+    </div>
+    <div id="right"></div>
+  </div>
+</body>
+<script>
+  let $btn = document.getElementById('collapse')
+  let $boxs = document.querySelectorAll('.box')
+  let $left = document.getElementById('left')
+  $btn.addEventListener('click', () => {
+    Array.from($boxs).forEach(element => {
+      if (element.className.indexOf('collapse') === -1) {
+        element.className = 'box collapse'
+        $left.className = 'collapse'
+        $btn.innerText = '展开'
+      } else {
+        element.className = 'box expand'
+        $left.className = 'expand'
+        $btn.innerText = '收起'
+      }
+    });
+  })
+</script>
+
+</html>
